@@ -1,0 +1,22 @@
+<input #msginput type="text" />
+<button (click)="addMessage(msginput.value)">Add</button>
+
+<p>Messages</p>
+<p *ngIf="!messages"><em>Loading...</em></p>
+
+<div *ngIf="messages">
+  <div class="message" *ngFor="let message of messages">
+    <div *ngIf="isChanging(message.id) === false">
+      <button (click)="setChanging(message.id)">Change</button>
+      <button (click)="deleteMessage(message.id)" [disabled]="!isDeletable">
+        Delete
+      </button>
+      <span>{{ message.msg }}</span>
+    </div>
+    <div *ngIf="isChanging(message.id) === true">
+      <button (click)="changeMessage(message.id, changeinput.value)">Ok</button>
+      <button (click)="cancelChanging()">Cancel</button>
+      <input #changeinput type="text" [value]="message.msg" />
+    </div>
+  </div>
+</div>
